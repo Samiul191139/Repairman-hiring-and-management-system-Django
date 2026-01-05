@@ -1,22 +1,17 @@
 {% extends "base/base.html" %}
 
-{% block navbar %}
-<nav class="navbar navbar-dark bg-danger">
-    <div class="container-fluid">
-        <span class="navbar-brand">Admin Panel</span>
-    </div>
-</nav>
-{% endblock %}
+{% block title %}Admin Dashboard{% endblock %}
 
-{% block sidebar %}
-<div class="col-md-2 bg-dark min-vh-100">
-    <ul class="nav flex-column p-3">
-        <li class="nav-item">
-            <a class="nav-link text-white" href="/panel/">Dashboard</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-white" href="/panel/users/">Users</a>
-        </li>
-    </ul>
+{% block content %}
+<div class="navbar">
+    Admin Panel
+    <span style="float:right;">
+        {{ request.user.email }}
+        <a href="/accounts/logout/">Logout</a>
+    </span>
+</div>
+
+<div class="container">
+    {% block page_content %}{% endblock %}
 </div>
 {% endblock %}
