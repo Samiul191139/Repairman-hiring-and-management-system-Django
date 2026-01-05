@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure--yiumd3+4tnb*ok=gd+yli-i6u(n7pp11ue!o1dbyth2ie-$cd
 DEBUG = True
 
 ALLOWED_HOSTS = []
+AUTH_USER_MODEL = 'accounts.User'
 
 
 # Application definition
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'customer',
     'repairman',
     'adminpanel',
+    'accounts',
 ]
 
 MIDDLEWARE = [

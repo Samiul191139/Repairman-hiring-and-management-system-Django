@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     return render(request, 'customer/home.html')
@@ -14,3 +15,7 @@ def services(request):
 
 def booking(request):
     return render(request, 'customer/booking.html')
+
+@login_required
+def home(request):
+    return render(request, 'customer/home.html')
