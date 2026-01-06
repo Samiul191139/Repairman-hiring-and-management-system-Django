@@ -2,17 +2,35 @@
 {% block title %}Services{% endblock %}
 
 {% block content %}
+<div class="sidebar">
+    <a href="{% url 'customer_dashboard' %}">Dashboard</a>
+    <a href="{% url 'services' %}">Browse Services</a>
+    <a href="{% url 'repairman_list' %}">Repairman List</a>
+    <a href="{% url 'booking_history' %}">Booking History</a>
+    <a href="{% url 'customer_profile' %}">My Profile</a>
+    <a href="{% url 'logout' %}">Logout</a>
+</div>
 <h3>Available Services</h3>
 
-<div class="row mt-3">
-    <div class="col-md-4">
-        <div class="card mb-3 shadow-sm">
-            <div class="card-body">
-                <h5>Electrical Repair</h5>
-                <p>Starting from ৳500</p>
-                <a href="/booking/" class="btn btn-primary btn-sm">Book Now</a>
-            </div>
+<div class="grid">
+    {% for category in categories %}
+        <div class="card">
+            <h5>{{ category.name }}</h5>
+            <p>{{ category.description }}</p>
+            {% if category.icon %}
+                <img src="{{ category.icon.url }}" alt="{{ category.name }}" style="width: 50px; height: 50px;">
+            {% endif %}
+
+            <ul>
+                {% for service in category.services.all %}
+                    <li>
+                        {{ service.name }} – ৳{{ service.base_price }}
+                        <a href="{% url 'booking_form' %}?service_id={{ service.id }}" class="btn btn-sm" style="margin-left: 5px;">Book Now</a>
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
-    </div>
+    {% endfor %}
 </div>
+
 {% endblock %}

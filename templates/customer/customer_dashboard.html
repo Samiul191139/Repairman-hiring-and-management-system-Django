@@ -1,0 +1,32 @@
+{% extends "base/base.html" %}
+{% block title %}Customer Dashboard{% endblock %}
+
+{% block content %}
+<div class="sidebar">
+    <a href="{% url 'customer_dashboard' %}">Dashboard</a>
+    <a href="{% url 'services' %}">Browse Services</a>
+    <a href="{% url 'repairman_list' %}">Repairman List</a>
+    <a href="{% url 'booking_history' %}">Booking History</a>
+    <a href="{% url 'customer_profile' %}">My Profile</a>
+    <a href="{% url 'logout' %}">Logout</a>
+</div>
+
+<div class="main">
+    <h2>Welcome, {{ request.user.name }}!</h2>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Quick Actions</h3>
+            <a href="{% url 'services' %}">Book a Service</a><br>
+            <a href="{% url 'booking_history' %}">View Bookings</a>
+        </div>
+
+        <div class="card">
+            <h3>My Stats</h3>
+            <p>Total Bookings: {{ total_bookings }}</p>
+            <p>Completed: {{ completed_bookings }}</p>
+            <p>Pending: {{ pending_bookings }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
