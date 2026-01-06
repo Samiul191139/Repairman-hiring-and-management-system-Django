@@ -54,3 +54,36 @@ class CustomerProfile(models.Model):
 
     def __str__(self):
         return self.user.email
+
+
+
+
+
+class RepairmanProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    skills = models.TextField(help_text="Electrical, AC, Plumbing, etc.")
+    experience_years = models.PositiveIntegerField()
+
+    price_per_service = models.DecimalField(max_digits=10, decimal_places=2)
+
+    availability = models.BooleanField(default=True)
+
+    nid_number = models.CharField(max_length=30)
+
+    documents = models.FileField(upload_to='repairman_documents/')
+
+    rating = models.FloatField(default=0.0)
+    total_jobs = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return self.user.email
+    
+
+class ServiceCategory(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    icon = models.ImageField(upload_to='service_category_icons/')
+
+    def __str__(self):
+        return self.name
