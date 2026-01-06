@@ -1,0 +1,38 @@
+{% extends "base/base.html" %}
+{% block title %}Customer Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="navbar">
+    Electrician Finder
+    <a href="{% url 'customer_dashboard' %}">Dashboard</a>
+    <a href="{% url 'my_bookings' %}">My Bookings</a>
+    <a href="{% url 'customer_profile' %}">Profile</a>
+    <a href="{% url 'logout' %}">Logout</a>
+</div>
+
+<div class="container">
+    <h2>Welcome, {{ request.user.name }}</h2>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Find a Service</h3>
+            <p>Browse available electrician services</p>
+            <a href="{% url 'service_categories' %}" class="btn">Browse Services</a>
+        </div>
+
+        <div class="card">
+            <h3>My Bookings</h3>
+            <p>Track your service requests</p>
+            <a href="{% url 'my_bookings' %}" class="btn">View Bookings</a>
+        </div>
+
+        <div class="card">
+            <h3>My Profile</h3>
+            <p>Manage your account details</p>
+            <a href="{% url 'customer_profile' %}" class="btn">View Profile</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
