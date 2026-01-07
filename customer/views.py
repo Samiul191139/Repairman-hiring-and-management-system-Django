@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .decorators import customer_required
 from bookings.models import Booking
+from accounts.models import RepairmanProfile
 from services.models import ServiceCategory, Service
 
 @login_required
@@ -33,8 +34,11 @@ def services(request):
     categories = ServiceCategory.objects.prefetch_related('services').all()
     return render(request, 'customer/services.html', {'categories': categories})
 
+@login_required
 def repairman_list(request):
-    return render(request, 'customer/repairman_list.html')
+    # Fetch only available repairmen
+    repairmen = RepairmanProfile.objects.filter(availability=True).select_related('user')
+    return render(request, 'customer/repairman_list.html', {'repairmen': repairmen})
 
 def create_booking(request):
     return render(request, 'customer/booking_form.html')

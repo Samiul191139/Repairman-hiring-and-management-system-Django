@@ -17,9 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from . import views
+from accounts import views as account_views
 
 urlpatterns = [
-    path('', views.dashboard, name='repairman_dashboard'),
+    path('dashboard/', views.dashboard, name='repairman_dashboard'),
+    path('requests/', views.requests, name='repairman_requests'),
+
+    # Profile setup comes from accounts app
+    path('setup/', account_views.repairman_profile_setup, name='repairman_profile_setup'),
     path('login/', views.login_view, name='repairman_login'),
     path('register/', views.register_view, name='repairman_register'),
     path('requests/', views.requests, name='booking_requests'),

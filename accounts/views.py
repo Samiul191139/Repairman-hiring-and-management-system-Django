@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from .models import User, CustomerProfile
+from django.contrib.auth.decorators import login_required
+from .models import User, CustomerProfile, RepairmanProfile
+from .forms import RepairmanProfileForm
+
 
 
 def login_view(request):
@@ -14,7 +17,7 @@ def login_view(request):
             login(request, user)
 
             if user.role == 'CUSTOMER':
-                return redirect('customer_home')
+                return redirect('customer_dashboard')
             elif user.role == 'REPAIRMAN':
                 return redirect('repairman_dashboard')
             else:
@@ -53,6 +56,22 @@ def register_repairman(request):
         return redirect('login')
 
     return render(request, 'accounts/register_repairman.html')
+
+@login_required
+def repairman_profile_setup(request):
+    form = RepairmanProfileForm(instance=request.user.repairmanprofile)
+
+    if request.method == 'POST':
+        form = RepairmanProfileForm(request.POST, request.FILES, instance=request.user.repairmanprofile)
+        if form.is_valid():
+            form.save()
+            return redirect('repairman_dashboard')
+
+    return render(request, 'repairman/profile_setup_modal.html', {
+        'form': form,
+        'show_modal': True
+    })
+
 
 def logout_view(request):
     logout(request)

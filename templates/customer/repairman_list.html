@@ -1,0 +1,32 @@
+{% extends "customer/base.html" %}
+{% block title %}Repairmen{% endblock %}
+
+{% block content %}
+<div class="sidebar">
+    <a href="{% url 'customer_dashboard' %}">Dashboard</a>
+    <a href="{% url 'services' %}">Browse Services</a>
+    <a href="{% url 'repairman_list' %}">Repairman List</a>
+    <a href="{% url 'booking_history' %}">Booking History</a>
+    <a href="{% url 'customer_profile' %}">My Profile</a>
+    <a href="{% url 'logout' %}">Logout</a>
+</div>
+<h3>Available Repairmen</h3>
+
+<div class="grid">
+    {% for repairman in repairmen %}
+        <div class="card">
+            <h5>{{ repairman.user.name }}</h5>
+            <p>Email: {{ repairman.user.email }}</p>
+            <p>Phone: {{ repairman.user.phone }}</p>
+            <p>Skills: {{ repairman.skills }}</p>
+            <p>Experience: {{ repairman.experience_years }} years</p>
+            <p>Price per service: ৳{{ repairman.price_per_service }}</p>
+            <p>Rating: {{ repairman.rating }} ⭐ ({{ repairman.total_jobs }} jobs)</p>
+            
+            <a href="{% url 'booking_form' %}?repairman_id={{ repairman.id }}" class="btn btn-sm" style="margin-top: 10px;">Book Now</a>
+        </div>
+    {% empty %}
+        <p>No repairmen are currently available.</p>
+    {% endfor %}
+</div>
+{% endblock %}

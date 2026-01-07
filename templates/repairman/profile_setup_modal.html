@@ -1,0 +1,38 @@
+<div class="modal fade show" id="profileSetupModal" tabindex="-1" style="display:block;">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Complete Your Profile</h5>
+            </div>
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body">
+
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label class="form-label">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="text-danger small">
+                                    {{ field.errors|striptags }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">
+                        Save & Continue
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal-backdrop fade show"></div>

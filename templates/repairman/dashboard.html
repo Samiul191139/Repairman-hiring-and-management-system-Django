@@ -3,6 +3,10 @@
 {% block page_content %}
 <h2>Welcome, {{ request.user.name }} 🔧</h2>
 
+{% if show_modal %}
+    {% include "repairman/profile_setup_modal.html" %}
+{% endif %}
+
 <div class="grid">
     <div class="card">
         <h4>Pending Requests</h4>
